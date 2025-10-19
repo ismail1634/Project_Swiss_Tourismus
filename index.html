@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swiss Tourist Advisor</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>Swiss Tourist Advisor</h1>
+  <p>Smart travel suggestions based on real-time weather in Switzerland.</p>
+  <select id="citySelector">
+  <option value="Zurich">Zurich</option>
+  <option value="Geneva">Geneva</option>
+  <option value="Lucerne">Lucerne</option>
+  <option value="Bern">Bern</option>
+  <option value="Interlaken">Interlaken</option>
+</select>
+<div id="weatherBox">
+  <span id="weatherIcon" style="font-size: 20px; margin-right: 8px;"></span>
+  <span id="weatherText"></span>
+</div>
+  <button>Get Recommendations</button> <button id="locateBtn" style="margin-left: 10px;">Locate Me</button>
+<script>
+  const apiKey = "e864aa3b62719955c92e17449846206d"; 
+ document.querySelector("button").addEventListener("click", getWeather);
+
+function getWeatherEmoji(condition) {
+  switch (condition) {
+    case "Clear": return "☀️";
+    case "Rain": return "🌧";
+    case "Snow": return "❄️";
+    case "Clouds": return "☁️";
+    case "Thunderstorm": return "⛈";
+    case "Drizzle": return "🌦";
+    case "Mist":
+    case "Fog": return "🌫";
+    default: return "🌤";
+  }
+}
+const cityCoordinates = {
+  Zurich: [47.3769, 8.5417],
+  Geneva: [46.2044, 6.1432],
+  Lucerne: [47.0502, 8.3093],
+  Bern: [46.9481, 7.4474],
+  Interlaken: [46.6863, 7.8632]
+};
+
+async function getWeather() {
+  const city = document.getElementById("citySelector").value;
+  map.setView(cityCoordinates[city], 13);
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const weather = data.weather[0].main;
+
+  const weatherBox = document.getElementById("weatherBox");
+  const weatherIcon = document.getElementById("weatherIcon");
+  const weatherText = document.getElementById("weatherText");
+
+  weatherBox.style.display = "block";
+  weatherIcon.textContent = getWeatherEmoji(weather);
+  weatherText.textContent = `Weather in ${city}: ${weather}, ${data.main.temp}°C`;
+
+  await getActivities(city);
+}
+
+
+  // 📍 Locate Me button logic
+  document.getElementById("locateBtn").addEventListener("click", () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        map.setView([lat, lon], 13);
+        L.marker([lat, lon]).addTo(map).bindPopup("You are here").openPopup();
+      }, error => {
+        alert("Unable to retrieve your location.");
+      });
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  });
+
+</script>
+
+<div id="map" style="height: 400px; margin-top: 30px;"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  
+  const map = L.map('map').setView([47.3769, 8.5417], 13); 
+ 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+</script>
+<script>
+async function getActivities(city) {
+  const url = `http://localhost:3000/activities?location=${city}&language=en`;
+
+  try {
+    map.eachLayer(layer => {
+      if (layer instanceof L.Marker && layer.getPopup()?.getContent() !== "Kunsthaus Zürich") {
+        map.removeLayer(layer);
+      }
+    });
+
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("Activities API response:", data);
+
+    if (!data.features || data.features.length === 0) {
+      alert("No activities available at the moment.");
+      return;
+    }
+
+    const namedFeatures = data.features.filter(item => item.properties.name);
+    const activities = namedFeatures.slice(0, 5).map(item => item.properties.name);
+    alert("Suggested Activities:\n- " + activities.join("\n- "));
+
+    namedFeatures.slice(0, 5).forEach(item => {
+      const { name } = item.properties;
+      const [lon, lat] = item.geometry.coordinates;
+      L.marker([lat, lon]).addTo(map).bindPopup(name);
+    });
+
+  } catch (error) {
+    console.error("Error fetching activities:", error);
+    alert("Failed to fetch activities. Please try again later.");
+  }
+}
+</script>
+</body>
+</html>
+
