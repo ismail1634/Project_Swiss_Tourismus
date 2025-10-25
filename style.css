@@ -1,38 +1,171 @@
- body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    p {
-      font-size: 18px;
-      color: #34495e;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .weatherbox {
-     position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #ffffffcc;
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    font-size: 16px;
-    color: #2c3e50;
-    z-index: 999;
-    display: none;
-    }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e9e4e4;
+  text-align: center;
+  padding: 50px;
+  background-image: url("swiss1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+h1 {
+  color: #2c3e50;
+}
+p {
+  font-size: 18px;
+  color: #34495e;
+}
+h1, p, footer {
+  background-color: rgb(255, 252, 252);
+  padding: 10px 20px;
+  border-radius: 6px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* optional soft shadow */
+}
+/* button {
+  padding: 8px 10px;
+  font-size: 15px;
+  background-color: #1a6ba0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+} */
+/* button:hover {
+  background-color: #2980b9;
+} */
+#weatherBox {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ffffffcc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  color: #2c3e50;
+  z-index: 999;
+  display: none;
+}
+#weatherIcon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+nav {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 6px;
+  background-color: #2c3e50;
+  padding: 10px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav ul li a:hover {
+  text-decoration: underline;
+}
+.controls-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+#citySelector {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: 200px;
+}
+
+#recommendBtn {
+  padding: 10px 20px;
+  font-size: 15px;
+  background-color: #1a6ba0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.map-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+#map {
+  height: 400px;
+  width: 60%;
+  min-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+#activityBox {
+  width: 30%;
+  min-width: 250px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+footer {
+  margin-top: auto;
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+@media (max-width: 768px) {
+  .map-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #map,
+  #activityBox {
+    width: 100%;
+    max-width: none;
+  }
+}
