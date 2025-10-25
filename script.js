@@ -55,6 +55,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "© OpenStreetMap contributors",
 }).addTo(map);
 
+
 async function getActivities(city) {
   const [lat, lon] = cityCoordinates[city];
   const radius = 10000; // 10 km
@@ -73,17 +74,26 @@ if (!data.features || data.features.length === 0) {
 }
 
 const namedFeatures = data.features.filter(item => item.properties.name);
-const activities = namedFeatures.slice(0, 5).map(item => item.properties.name);
-alert("Suggested Activities:\n- " + activities.join("\n- "));
+const activityBox = document.getElementById("activityBox");
+const activityList = document.getElementById("activityList");
+
+activityList.innerHTML = ""; // Clear previous results
 
 namedFeatures.slice(0, 5).forEach(item => {
   const { name } = item.properties;
   const [lon, lat] = item.geometry.coordinates;
+
+  // Add marker to map
   L.marker([lat, lon]).addTo(map).bindPopup(name);
+
+  // Add item to list
+  const li = document.createElement("li");
+  li.textContent = name;
+  activityList.appendChild(li);
 });
+
   } catch (error) {
     console.error("Error fetching activities:", error);
     alert("Failed to fetch activities. Please try again later.");
   }
-  console.log("OpenTripMap response:", data);
 }
