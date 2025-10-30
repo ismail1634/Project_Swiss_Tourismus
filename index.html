@@ -4,57 +4,176 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Swiss Tourist Advisor</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <meta
+      name="description"
+      content="Plan your perfect Swiss adventure with live weather updates and personalized travel recommendations."
+    />
+    <meta
+      name="keywords"
+      content="Switzerland, travel, tourism, weather, map, Swiss cities, vacation"
+    />
+    <meta property="og:title" content="Swiss Tourist Advisor" />
+    <meta
+      property="og:description"
+      content="Explore Switzerland with smart, weather-based travel tips and interactive maps."
+    />
+    <meta property="og:image" content="swiss1.jpg" />
+    <link rel="icon" href="imgs/swiss-army-knife.png" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
-<body>
-  <div class="page-wrapper">
-    <h1>SWISS TOURIST ADVISOR</h1>
+
+  <body>
+    <header class="header-row">
+      <div class="flags flags-left" aria-hidden="false">
+        <button class="canton-btn" data-city="Zurich" title="Zürich">
+          <img src="imgs/Zürich.svg" alt="Zürich" class="canton-flag" />
+          <span class="sr-only">Zürich</span>
+        </button>
+        <button class="canton-btn" data-city="Geneva" title="Geneva">
+          <img src="imgs/Geneva.svg" alt="Geneva" class="canton-flag" />
+          <span class="sr-only">Geneva</span>
+        </button>
+        <button class="canton-btn" data-city="Bern" title="Bern">
+          <img src="imgs/Bern.svg" alt="Bern" class="canton-flag" />
+          <span class="sr-only">Bern</span>
+        </button>
+        <button class="canton-btn" data-city="Glarus" title="Glarus">
+          <img src="imgs/Glarus.svg" alt="Glarus" class="canton-flag" />
+          <span class="sr-only">Vaud</span>
+        </button>
+        <button class="canton-btn" data-city="Basel" title="Basel">
+          <img src="imgs/Basel.svg" alt="Basel" class="canton-flag" />
+          <span class="sr-only">Vaud</span>
+        </button>
+        <button class="canton-btn" data-city="Schwyz" title="Schwyz">
+          <img src="imgs/Schwyz.svg" alt="Schwyz" class="canton-flag" />
+          <span class="sr-only">Obwalden</span>
+        </button>
+        <button
+          class="canton-btn"
+          data-city="Schaffhausen"
+          title="Schaffhausen"
+        >
+          <img
+            src="imgs/Schaffhausen.svg"
+            alt="Schaffhausen"
+            class="canton-flag"
+          />
+          <span class="sr-only">Schaffhausen</span>
+        </button>
+        <button class="canton-btn" data-city="Nidwalden" title="Nidwalden">
+          <img src="imgs/Nidwalden.svg" alt="Nidwalden" class="canton-flag" />
+          <span class="sr-only">Nidwalden</span>
+        </button>
+      </div>
+
+      <div class="title-block">
+        <h1>
+          <img src="imgs/Swiss_flag.svg" alt="Swiss flag" class="flag" />
+          Swiss Tourist Advisor
+        </h1>
+        <p class="tagline">
+          Discover activities based on real-time Swiss weather conditions.
+        </p>
+      </div>
+
+      <div class="flags flags-right" aria-hidden="false">
+        <button class="canton-btn" data-city="Vaud" title="Vaud">
+          <img src="imgs/Vaud.svg" alt="Vaud" class="canton-flag" />
+          <span class="sr-only">Vaud</span>
+        </button>
+        <button class="canton-btn" data-city="Ticino" title="Ticino">
+          <img src="imgs/Ticino.svg" alt="Ticino" class="canton-flag" />
+          <span class="sr-only">Ticino</span>
+        </button>
+        <button class="canton-btn" data-city="Graubunden" title="Graubünden">
+          <img src="imgs/Graubünden.svg" alt="Graubünden" class="canton-flag" />
+          <span class="sr-only">Graubünden</span>
+        </button>
+        <button class="canton-btn" data-city="St gallen" title="St gallen">
+          <img
+            src="imgs/Sankt_Gallen.svg"
+            alt="St gallen"
+            class="canton-flag"
+          />
+          <span class="sr-only">St gallen</span>
+        </button>
+        <button class="canton-btn" data-city="Uri" title="Uri">
+          <img src="imgs/Uri.svg" alt="Uri" class="canton-flag" />
+          <span class="sr-only">Uri</span>
+        </button>
+        <button class="canton-btn" data-city="Obwalden" title="Obwalden">
+          <img src="imgs/Obwalden.svg" alt="Obwalden" class="canton-flag" />
+          <span class="sr-only">Obwalden</span>
+        </button>
+        <button class="canton-btn" data-city="Baselland" title="Baselland">
+          <img src="imgs/Baselland.svg" alt="Baselland" class="canton-flag" />
+          <span class="sr-only">Baselland</span>
+        </button>
+        <button class="canton-btn" data-city="Appenzeller" title="Appenzeller">
+          <img src="imgs/Appenzell.svg" alt="Appenzeller" class="canton-flag" />
+          <span class="sr-only">Appenzeller</span>
+        </button>
+      </div>
+    </header>
+
     <nav>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="https://traveldestination.org/" target="_blank" rel="noopener noreferrer">Tipps</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">About_Swiss</a></li>
+        <li>
+          <a
+            href="https://traveldestination.org/"
+            target="_blank"
+            rel="noopener"
+            >Tips</a
+          >
+        </li>
+        <li><a href="analysis.html">Analysis</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
 
-    <p>Smart travel suggestions based on real-time weather in Switzerland.</p>
-
-    <div class="controls-layout">
+    <section class="controls-layout">
       <div class="input-group">
+        <button id="aiSuggestBtn">AI Suggest</button>
         <select id="citySelector">
-          <option value="Zurich">Zurich</option>
-          <option value="Geneva">Geneva</option>
-          <option value="Lucerne">Lucerne</option>
+          <option value="Basel">Basel</option>
           <option value="Bern">Bern</option>
+          <option value="Geneva">Geneva</option>
           <option value="Interlaken">Interlaken</option>
+          <option value="Lauterbrunnen">Lauterbrunnen</option>
+          <option value="Lausanne">Lausanne</option>
+          <option value="Lucerne">Lucerne</option>
+          <option value="Lugano">Lugano</option>
+          <option value="Schaffhausen">Schaffhausen</option>
+          <option value="Solothurn">Solothurn</option>
+          <option value="Thun">Thun</option>
+          <option value="Zurich">Zurich</option>
         </select>
         <button id="recommendBtn">Get Recommendations</button>
       </div>
 
-      <div id="weatherBox">
+      <div id="weatherBox" style="display: none">
         <span id="weatherIcon"></span>
         <span id="weatherText"></span>
       </div>
-    </div>
+    </section>
 
-    <div class="map-layout">
+    <section class="map-layout">
       <div id="map"></div>
-
       <div id="activityBox">
         <h3>Suggested Activities</h3>
         <ul id="activityList"></ul>
       </div>
-    </div>
+    </section>
 
     <footer>
       <p>© 2025 Swiss Tourist Advisor | Built with ❤️ in Switzerland</p>
     </footer>
-  </div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js"></script>
-</body>
-
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
